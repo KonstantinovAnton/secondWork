@@ -37,7 +37,7 @@
         android:layout_marginBottom="16dp"
         android:background="@drawable/button"
         android:text="добавить"
-
+        android:onClick="GoAddPerson"
         android:textColor="@drawable/font_button"
         app:layout_constraintBottom_toTopOf="@+id/btnClear"
         app:layout_constraintEnd_toEndOf="parent"
@@ -77,6 +77,7 @@
         android:layout_marginBottom="16dp"
         android:background="@drawable/button"
         android:text="очистить"
+        android:onClick="Clear"
         android:textColor="@drawable/font_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

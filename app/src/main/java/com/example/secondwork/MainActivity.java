@@ -1,14 +1,10 @@
 package com.example.secondwork;
 
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -17,6 +13,9 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -108,6 +107,18 @@ public class MainActivity extends AppCompatActivity {
             List<Person> listFilter = listPerson.stream().filter(x-> (x.lname.toLowerCase(Locale.ROOT).contains(editTextSort.getText().toString().toLowerCase(Locale.ROOT)))).collect(Collectors.toList());
             Sort(listFilter);
         }
+
+
+    public void GoAddPerson(View v){
+        startActivity(new Intent(this, AddPerson.class));
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void Clear(View v) {
+        editTextSort.setText("");
+        spinner.setSelection(0);
+    }
+
 
         @RequiresApi(api = Build.VERSION_CODES.N)
         public void Sort(List<Person> list){

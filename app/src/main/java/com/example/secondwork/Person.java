@@ -1,9 +1,6 @@
 package com.example.secondwork;
 
 
-import static java.lang.System.in;
-
-import android.content.Intent;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -50,6 +47,7 @@ public class Person implements Parcelable {
 
 
     public void setID(Integer i){ID = i;}
+
     public void setFname(String fn){fname = fn;}
     public void setLname(String ln){lname = ln;}
     public void setImg(String img){image = img;}
@@ -66,6 +64,9 @@ public class Person implements Parcelable {
         return lname;
     }
     public String getImage(){return  image;}
+
+
+
 
     public Person(Integer id, String fn, String ln, String img)
     {

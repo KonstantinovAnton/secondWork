@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected String doInBackground(Void... voids) {
                 try {
-                    URL url = new URL("https://ngknn.ru:5001/ngknn/КонстантиновАС/api/Persons");
+                    URL url = new URL("https://ngknn.ru:5001/ngknn/КонстантиновАС/api/");
                     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                     BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                     StringBuilder result = new StringBuilder();
@@ -174,13 +174,15 @@ public class MainActivity extends AppCompatActivity {
                     {
                         JSONObject perJson = tempArray.getJSONObject(i);
                         Person tempProduct = new Person(
-                                perJson.getInt("ID"),
+                                perJson.getInt("id"),
                                 perJson.getString("fname"),
                                 perJson.getString("lname"),
                                 perJson.getString("img")
                         );
                         listPerson.add(tempProduct);
                         pAdapter.notifyDataSetInvalidated();
+
+
                     }
                 } catch (Exception ignored) {
 

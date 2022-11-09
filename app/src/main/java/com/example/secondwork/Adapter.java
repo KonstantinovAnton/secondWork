@@ -2,9 +2,6 @@ package com.example.secondwork;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Base64;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -15,13 +12,12 @@ import java.util.List;
 
 public class Adapter extends BaseAdapter {
 
-
     Context mContext;
     List<Person> personList;
 
-    public Adapter(Context mContext, List<Person> listProduct) {
+    public Adapter(Context mContext, List<Person> filmsList) {
         this.mContext = mContext;
-        this.personList = listProduct;
+        this.personList = filmsList;
     }
 
     @Override
@@ -40,34 +36,29 @@ public class Adapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup)
-    {
+    public View getView(int i, View view, ViewGroup viewGroup) {
         View v = View.inflate(mContext,R.layout.listlayouttemplate,null);
-
-        TextView id = v.findViewById(R.id.ID);
         TextView fname = v.findViewById(R.id.tvFname);
         TextView lname = v.findViewById(R.id.tvLname);
-        ImageView img = v.findViewById(R.id.imageView);
+        TextView id = v.findViewById(R.id.tvID);
+        ImageView Img = v.findViewById(R.id.imageView);
 
         Person p = personList.get(i);
 
-        id.setText(p.getID());
-        fname.setText(p.getFname());
+        fname.setText((p.getFname()));
+
         lname.setText(p.getLname());
-
-        DecodeImg decodeImg = new DecodeImg(mContext);
-        img.setImageBitmap(decodeImg.getImg(p.getImage()));
-        v.setOnClickListener(new View.OnClickListener(){
-
-
+        id.setText(Integer.toString(p.getID()));
+        DecodeImg m = new DecodeImg(mContext);
+        Img.setImageBitmap(m.getImg(p.getImage()));
+        v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent intent = new Intent(mContext, updeteClass.class);
-                // intent.putExtra(Person.class.getName(),p);
-                // mContext.startActivity(intent);
+                Intent intent = new Intent(mContext, UpdatePerson.class);
+                intent.putExtra(Person.class.getSimpleName(), p);
+                mContext.startActivity(intent);
             }
         });
-
         return v;
     }
 }

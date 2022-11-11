@@ -6,6 +6,8 @@ import retrofit2.http.PUT;
 import retrofit2.http.Query;
 
 public interface RetrofitApiPut {
-    @PUT("Person/")
-    Call<Person> createPut(@Body Person dataModal, @Query("ID") int id);
+    @PUT("Persons/")
+    Call<Persons> createPut(@Body Persons dataModal, @Query("ID") int id);
 }
+
+

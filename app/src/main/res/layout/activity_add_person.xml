@@ -16,6 +16,7 @@
         android:gravity="start|top"
         android:hint="Имя"
         android:inputType="textMultiLine"
+        android:textColor="@drawable/font"
         android:textColorHint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,6 +31,7 @@
         android:ems="10"
         android:hint="Фамилия"
         android:inputType="textMultiLine"
+        android:textColor="@drawable/font"
         android:textColorHint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,6 +46,7 @@
         android:background="@drawable/button"
         android:onClick="DataPost"
         android:text="Добавить"
+
 
         android:textColor="@drawable/font_button"
         app:layout_constraintBottom_toTopOf="@+id/btnBack"

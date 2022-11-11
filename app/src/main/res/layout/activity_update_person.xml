@@ -9,43 +9,41 @@
 
     <EditText
         android:id="@+id/editTextUpFname"
-        android:layout_width="0dp"
+        android:layout_width="351dp"
         android:layout_height="50dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="44dp"
         android:gravity="start|top"
-
         android:inputType="textMultiLine"
+        android:textColor="@drawable/font"
+        android:textColorHint="@drawable/font"
         app:layout_constraintBottom_toTopOf="@+id/editTextUpLname"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/upImg"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <EditText
         android:id="@+id/editTextUpLname"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:gravity="start|top"
-
-        android:inputType="textMultiLine"
-        app:layout_constraintBottom_toTopOf="@+id/editTextUpId"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextUpFname"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-    <EditText
-        android:id="@+id/editTextUpId"
         android:layout_width="351dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="76dp"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        android:textColor="@drawable/font"
+        android:textColorHint="@drawable/font"
+        app:layout_constraintBottom_toTopOf="@+id/btnAddData"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
 
+    <TextView
+        android:id="@+id/editTextUpId"
+        android:layout_width="278dp"
+        android:layout_height="49dp"
+        android:layout_marginBottom="44dp"
         android:ems="10"
         android:inputType="textMultiLine"
-        app:layout_constraintBottom_toTopOf="@+id/btnAddData"
+        android:textColor="@drawable/font"
+        app:layout_constraintBottom_toTopOf="@+id/editTextUpFname"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="SpeakableTextPresentCheck" />
@@ -55,12 +53,11 @@
         android:layout_width="170dp"
         android:layout_height="49dp"
 
-        android:layout_marginStart="28dp"
+        android:layout_marginStart="16dp"
         android:layout_marginBottom="12dp"
-
         android:background="@drawable/button"
         android:onClick="Update"
-        android:text="добавить"
+        android:text="изменить"
         android:textColor="@drawable/font_button"
         app:layout_constraintBottom_toTopOf="@+id/btnBack"
         app:layout_constraintStart_toStartOf="parent" />
@@ -70,7 +67,6 @@
         android:layout_width="130dp"
         android:layout_height="wrap_content"
 
-        android:layout_marginBottom="16dp"
         android:background="@drawable/button"
 
         android:onClick="GoViewData"
@@ -79,7 +75,6 @@
         android:textColor="@drawable/font_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -91,36 +86,33 @@
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/upImg"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:layout_editor_absoluteX="206dp"
+        tools:layout_editor_absoluteY="43dp"
+        tools:ignore="MissingConstraints" />
 
     <android.widget.Button
         android:id="@+id/btnDelete"
         android:layout_width="170dp"
         android:layout_height="49dp"
 
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="12dp"
 
         android:background="@drawable/button"
         android:onClick="Delete"
-
         android:text="удалить"
         android:textColor="@drawable/font_button"
         app:layout_constraintBottom_toTopOf="@+id/btnBack"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.302"
-        app:layout_constraintStart_toEndOf="@+id/btnAddData" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageView
         android:id="@+id/upImg"
         android:layout_width="130dp"
         android:layout_height="130dp"
         android:onClick="SelectPhoto"
-        app:layout_constraintBottom_toTopOf="@+id/editTextUpFname"
+        app:layout_constraintBottom_toTopOf="@+id/editTextUpId"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtHeader"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="SpeakableTextPresentCheck" />
 </androidx.constraintlayout.widget.ConstraintLayout>

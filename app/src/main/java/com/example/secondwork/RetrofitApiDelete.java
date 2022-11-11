@@ -5,6 +5,6 @@ import retrofit2.http.DELETE;
 import retrofit2.http.Query;
 
 public interface RetrofitApiDelete {
-    @DELETE("Person/")
-    Call<Person> createDelete(@Query("id") int id);
+    @DELETE("Persons/")
+    Call<Persons> createDelete(@Query("id") int id);
 }

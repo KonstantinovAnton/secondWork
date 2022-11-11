@@ -1,12 +1,12 @@
 package com.example.secondwork;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -34,15 +34,12 @@ import java.util.stream.Collectors;
 public class MainActivity extends AppCompatActivity {
 
     private Adapter pAdapter;
-    private List<Person> listPerson = new ArrayList<>();
+    private List<Persons> listPerson = new ArrayList<>();
     EditText editTextSort;
     Spinner spinner;
     ListView listView;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-
-
-    @SuppressLint("MissingInflatedId")
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,29 +49,27 @@ public class MainActivity extends AppCompatActivity {
             listView = findViewById(R.id.listViewEmployees);
             String[]items = {"<по умолчанию>","Код","Имя", "Фамилия"};
             spinner = findViewById(R.id.spinSort);
+
             editTextSort = findViewById(R.id.editTextSortBy);
             ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, items);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinner.setAdapter(adapter);
+        //Person tempProduct = new Person(1,"asd","asd");
+        //listPerson.add(tempProduct);
+
+
             spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
 
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                    if(editTextSort.getText().toString().isEmpty()){
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                            Sort(listPerson);
-                        }
-                    }
-                    else{
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                            Search();
-                        }
+                    if (editTextSort.getText().toString().isEmpty()) {
+                        Sort(listPerson);
+                    } else {
+                        Search();
                     }
                 }
-
                 @Override
                 public void onNothingSelected(AdapterView<?> adapterView) {
-
                 }
             });
 
@@ -96,18 +91,45 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
-        public void SetAdapter(List<Person> list){
+        public void SetAdapter(List<Persons> list){
             pAdapter = new Adapter(MainActivity.this,list);
             listView.setAdapter(pAdapter);
             pAdapter.notifyDataSetInvalidated();
+
         }
 
         @RequiresApi(api = Build.VERSION_CODES.N)
         public void Search(){
-            List<Person> listFilter = listPerson.stream().filter(x-> (x.lname.toLowerCase(Locale.ROOT).contains(editTextSort.getText().toString().toLowerCase(Locale.ROOT)))).collect(Collectors.toList());
+            List<Persons> listFilter = listPerson.stream().filter(x-> (x.lname.toLowerCase(Locale.ROOT).contains(editTextSort.getText().toString().toLowerCase(Locale.ROOT)))).collect(Collectors.toList());
             Sort(listFilter);
         }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void Sort(List<Persons> list){
+        listView.setAdapter(null);
+
+        switch(spinner.getSelectedItemPosition()){
+            case 0:
+                if(editTextSort.getText().toString().isEmpty()){
+
+                    listPerson.clear();
+                    new GetPerson().execute();
+                }
+                break;
+            case 1:
+                Collections.sort(list, Comparator.comparing(Persons::getID));
+                break;
+            case 2:
+                Collections.sort(list, Comparator.comparing(Persons::getFname));
+                break;
+            case 3:
+                Collections.sort(list, Comparator.comparing(Persons::getLname));
+                break;
+            default:
+                break;
+        }
+        SetAdapter(list);
+    }
 
     public void GoAddPerson(View v){
         startActivity(new Intent(this, AddPerson.class));
@@ -120,38 +142,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-        @RequiresApi(api = Build.VERSION_CODES.N)
-        public void Sort(List<Person> list){
-            listView.setAdapter(null);
 
-            switch(spinner.getSelectedItemPosition()){
-                case 0:
-                    if(editTextSort.getText().toString().isEmpty()){
-                        listPerson.clear();
-                        new GetPerson().execute();
-                    }
-                    break;
-                case 1:
-                    Collections.sort(list, Comparator.comparing(Person::getID));
-                    break;
-                case 2:
-                    Collections.sort(list, Comparator.comparing(Person::getFname));
-                    break;
-                case 3:
-                    Collections.sort(list, Comparator.comparing(Person::getLname));
-                    break;
-                default:
-                    break;
-            }
-            SetAdapter(list);
-        }
 
         private class GetPerson extends AsyncTask<Void, Void, String> {
 
             @Override
             protected String doInBackground(Void... voids) {
                 try {
-                    URL url = new URL("https://ngknn.ru:5001/ngknn/КонстантиновАС/api/");
+                    URL url = new URL("https://ngknn.ru:5001/ngknn/КонстантиновАС/api/Persons");
                     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                     BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                     StringBuilder result = new StringBuilder();
@@ -173,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
                     for (int i = 0;i<tempArray.length();i++)
                     {
                         JSONObject perJson = tempArray.getJSONObject(i);
-                        Person tempProduct = new Person(
+                        Persons tempProduct = new Persons(
                                 perJson.getInt("id"),
                                 perJson.getString("fname"),
                                 perJson.getString("lname"),
@@ -185,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 } catch (Exception ignored) {
-
+                    Log.e(ignored.toString(), ignored.getMessage());
                 }
             }
         }

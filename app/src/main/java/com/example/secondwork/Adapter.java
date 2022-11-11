@@ -13,11 +13,11 @@ import java.util.List;
 public class Adapter extends BaseAdapter {
 
     Context mContext;
-    List<Person> personList;
+    List<Persons> personList;
 
-    public Adapter(Context mContext, List<Person> filmsList) {
+    public Adapter(Context mContext, List<Persons> personList) {
         this.mContext = mContext;
-        this.personList = filmsList;
+        this.personList = personList;
     }
 
     @Override
@@ -38,24 +38,24 @@ public class Adapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         View v = View.inflate(mContext,R.layout.listlayouttemplate,null);
+        TextView id = v.findViewById(R.id.tvID);
         TextView fname = v.findViewById(R.id.tvFname);
         TextView lname = v.findViewById(R.id.tvLname);
-        TextView id = v.findViewById(R.id.tvID);
         ImageView Img = v.findViewById(R.id.imageView);
 
-        Person p = personList.get(i);
+        Persons p = personList.get(i);
 
+       id.setText(Integer.toString(p.getID()));
         fname.setText((p.getFname()));
-
         lname.setText(p.getLname());
-        id.setText(Integer.toString(p.getID()));
+
         DecodeImg m = new DecodeImg(mContext);
         Img.setImageBitmap(m.getImg(p.getImage()));
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, UpdatePerson.class);
-                intent.putExtra(Person.class.getSimpleName(), p);
+                intent.putExtra(Persons.class.getSimpleName(), p);
                 mContext.startActivity(intent);
             }
         });

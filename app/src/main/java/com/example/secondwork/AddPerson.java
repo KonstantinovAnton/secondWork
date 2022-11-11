@@ -70,28 +70,36 @@ public class AddPerson extends AppCompatActivity {
     }
 
     public void DataPost(View v){
+
         EncodeImg ei = new EncodeImg();
-        postData(Fname.getText().toString(), Lname.getText().toString(), Integer.parseInt(ID.getText().toString()), ei.Image(bitmap), v);
+        String fname = Fname.getText().toString();
+        String lname = Lname.getText().toString();
+        String image = ei.Image(bitmap);
+
+        postData(fname, lname, image, v);
     }
 
-    private void postData(String fName, String lName, int ID, String image, View v) {
+    private void postData(String fName, String lName, String image, View v) {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://ngknn.ru:5001/ngknn/КонстантиновАС/api/")
+
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         RetrofitApi retrofitAPI = retrofit.create(RetrofitApi.class);
-        Person modal = new Person(ID, fName, lName,  image);
-        Call<Person> call = retrofitAPI.createPost(modal);
-        call.enqueue(new Callback<Person>() {
+
+
+        Persons modal = new Persons(null, fName, lName,  image);
+        Call<Persons> call = retrofitAPI.createPost(modal);
+        call.enqueue(new Callback<Persons>() {
             @Override
-            public void onResponse(Call<Person> call, Response<Person> response) {
+            public void onResponse(Call<Persons> call, Response<Persons> response) {
                 Toast.makeText(AddPerson.this, "Данные успешно добавлены!", Toast.LENGTH_SHORT).show();
                 GoViewData(v);
             }
 
             @Override
-            public void onFailure(Call<Person> call, Throwable t) {
+            public void onFailure(Call<Persons> call, Throwable t) {
                 Toast.makeText(AddPerson.this, "Ошибка", Toast.LENGTH_SHORT).show();
             }
         });

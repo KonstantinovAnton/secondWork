@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -27,8 +28,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class UpdatePerson extends AppCompatActivity {
 
     Bundle arg;
-    Person person;
-    EditText fname, lname, id;
+    Persons person;
+    EditText fname, lname;
+    TextView id;
     ImageView img;
     Bitmap bitmap = null;
 
@@ -38,17 +40,17 @@ public class UpdatePerson extends AppCompatActivity {
         setContentView(R.layout.activity_update_person);
 
         arg = getIntent().getExtras();
-        person = arg.getParcelable(Person.class.getSimpleName());
+        person = arg.getParcelable(Persons.class.getSimpleName());
 
+        id = findViewById(R.id.editTextUpId);
         fname = findViewById(R.id.editTextUpFname);
         lname = findViewById(R.id.editTextUpLname);
-        id = findViewById(R.id.editTextUpId);
         img = findViewById(R.id.upImg);
 
-
+        id.setText(Integer.toString(person.getID()));
         fname.setText(person.getFname());
         lname.setText(person.getLname());
-        id.setText(Integer.toString(person.getID()));
+
         DecodeImg decodeImageClass = new DecodeImg(UpdatePerson.this);
         Bitmap userImage = decodeImageClass.getImg(person.getImage());
         img.setImageBitmap(userImage);
@@ -79,9 +81,10 @@ public class UpdatePerson extends AppCompatActivity {
     }
 
     public void Update(View v) {
+        person.setID(Integer.parseInt(id.getText().toString()));
         person.setFname(fname.getText().toString());
         person.setLname(lname.getText().toString());
-        person.setID(Integer.parseInt(id.getText().toString()));
+
 
         EncodeImg encodeImageClass = new EncodeImg();
         person.setImg(encodeImageClass.Image(bitmap));
@@ -96,12 +99,12 @@ public class UpdatePerson extends AppCompatActivity {
         startActivity(new Intent(this, MainActivity.class));
     }
 
-    private void DataPutDelete(Person person, int number, String str, View v) {
+    private void DataPutDelete(Persons person, int number, String str, View v) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://ngknn.ru:5001/ngknn/КонстантиновАС/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        Call<Person> call = null;
+        Call<Persons> call = null;
         switch (number) {
             case 0:
                 RetrofitApiPut retrofitAPI = retrofit.create(RetrofitApiPut.class);
@@ -114,15 +117,15 @@ public class UpdatePerson extends AppCompatActivity {
             default:
                 break;
         }
-        call.enqueue(new Callback<Person>() {
+        call.enqueue(new Callback<Persons>() {
             @Override
-            public void onResponse(Call<Person> call, Response<Person> response) {
+            public void onResponse(Call<Persons> call, Response<Persons> response) {
                 Toast.makeText(UpdatePerson.this, str, Toast.LENGTH_SHORT).show();
                 GoViewData(v);
             }
 
             @Override
-            public void onFailure(Call<Person> call, Throwable t) {
+            public void onFailure(Call<Persons> call, Throwable t) {
                 Toast.makeText(UpdatePerson.this, "Ошибка!", Toast.LENGTH_SHORT).show();
             }
         });

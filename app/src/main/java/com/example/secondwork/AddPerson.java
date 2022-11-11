@@ -37,7 +37,7 @@ public class AddPerson extends AppCompatActivity {
         setContentView(R.layout.activity_add_person);
 
         Img = findViewById(R.id.addPersonImg);
-        b = BitmapFactory.decodeResource(AddPerson.this.getResources(), R.drawable.employee);
+       b = BitmapFactory.decodeResource(AddPerson.this.getResources(), R.drawable.e);
 
         Fname = findViewById(R.id.addPersonFname);
         Lname = findViewById(R.id.addPersonLname);

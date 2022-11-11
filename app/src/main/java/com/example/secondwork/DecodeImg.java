@@ -19,6 +19,6 @@ public class DecodeImg {
             return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         }
         else
-            return BitmapFactory.decodeResource(DecodeImg.this.context.getResources(), R.drawable.employee);
+            return BitmapFactory.decodeResource(DecodeImg.this.context.getResources(), R.drawable.e);
     }
 }
